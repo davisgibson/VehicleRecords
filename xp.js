@@ -46,8 +46,13 @@ db.serialize(function(){
 
 
 app.get('/cars', function (req, res) {
-    var carList = getCars();
-    res.render('cars', {item: carList});
+    var carList = [];
+    db.all("SELECT name,make,model,color,year,miles,description FROM cars", function(err, rows) {
+        rows.forEach(function(rows){
+            carList.push(rows);
+        });
+        res.render('cars', {items: carList});
+    });
 });
 
 
@@ -67,14 +72,17 @@ function car(name,make,model,color,year,miles,description){
 
 
 function getCars(){
-    var carList = new Array();
-    db.all("SELECT name,make,model,color,year,miles,description FROM cars", function(err, rows) {
-        rows.forEach(function (row) {
-            carList.push(new car(row.name,row.make,row.model,row.color,row.year,row.miles,row.description));
-        })
-    });	
-    return carList;
+    var carsList = [];
+    db.all("SELECT name,make,model,color,year,miles,description FROM cars", function(err, row) {
+        carsList.push(row)
+    });
+    
+    
+    
+    console.log(carsList);
+    return carsList;
 }
+
 
 /* USEFUL STUFF
 app.get('/cars/:carID', function (req, res) {

@@ -1,11 +1,10 @@
 
 html
     head
-     title= cars
-     items= item
+     title= 'Cars'
+     -var cars= items
     body
-    
-        ul
-            each val in items
-                li= items.length
+        each val in items
+            p= val.name
+        
     
