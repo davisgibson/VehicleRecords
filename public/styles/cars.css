@@ -1,0 +1,41 @@
+.carContainer{
+    padding: 5px;
+    height: 40vh;
+    width: 20vw;
+    border: 3px solid #dfdce3;
+    border-radius: 20px;
+    background: #f7b733;
+}
+*{
+    padding: 0px; 
+    margin: 0px;
+}
+.carListContainer{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    background: #4abdac;
+}
+.center{
+    display: flex;
+    justify-content: center;
+}
+
+.addCar{
+    text-decoration: none;
+    color: black;
+    font-size: 3em;
+    height: 30px;
+    padding-top: 0px;
+}
+
+.addCar:hover{
+    cursor: pointer;
+}
+
+.header{
+    font-size: 2em;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}

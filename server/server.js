@@ -1,10 +1,11 @@
 const express = require('express')
 const app = express()
 const port = 3000
-app.set('view engine', 'pug')
-app.set('views', './views')
+app.set('view engine', 'pug');
+app.set('views', '../views');
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database(':memory:');
+app.use(express.static('../public'));
 
 //initializing tables
 db.serialize(function(){
@@ -40,7 +41,7 @@ db.serialize(function(){
 
 
 
-
+app.listen(port, () => console.log(`app listening on port ${port}!`));
 
 
 
@@ -57,31 +58,27 @@ app.get('/cars', function (req, res) {
 
 
 
-
-app.listen(port, () => console.log(`Example app listening on port ${port}!`)); 
-
-function car(name,make,model,color,year,miles,description){
-    this.name = name;
-    this.make = make;
-    this.model= model;
-    this.color = color;
-    this.year = year;
-    this.miles = miles;
-    this.description = description;
-}
-
-
-function getCars(){
-    var carsList = [];
-    db.all("SELECT name,make,model,color,year,miles,description FROM cars", function(err, row) {
-        carsList.push(row)
+app.get('/cars/add',function(req,res) {
+    var types = new Array();
+    var prom = new Promise(function(resolve,reject){
+        db.all("SELECT make,model FROM carTypes", function(err,rows) {
+            rows.forEach(function(rows){
+                types.push(rows);
+            });
+            if(types.length > 0){
+                resolve(types);
+            }
+            else{
+                reject(new Error("OOPS"));
+            }
+        });
+    }).then(function(value){
+        res.render('addCar', {types: value});
+    }).catch(function(err){
+        console.log(err);
     });
-    
-    
-    
-    console.log(carsList);
-    return carsList;
-}
+});
+
 
 
 /* USEFUL STUFF

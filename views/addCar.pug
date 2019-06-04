@@ -1,0 +1,23 @@
+html
+    head
+        title= 'Add Car'
+        -var carTypes = types
+    body    
+        form(method="post")
+            h3 Name:
+            input(type="text", name="name")/ 
+            label(for='model') Make:
+                select#makes(name="make")
+                    each val in carTypes
+                        option= val.make
+            h3 Model:
+            select#models(name="models")
+                
+            h3 Color:
+            
+            h3 Year:
+
+            h3 Miles:
+            input(type="number", name="Miles")
+            h3 Description:
+

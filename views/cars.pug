@@ -3,8 +3,20 @@ html
     head
      title= 'Cars'
      -var cars= items
+     link(rel="stylesheet" type="text/css" href="/styles/cars.css")
     body
-        each val in items
-            p= val.name
+        div(class='header') 
+            h1 Vehicle List
+            a(href='/cars/add' class='addCar') +
+        div(class='carListContainer')
+            each val in items
+                div(class='carContainer')
+                    p Name: #{val.name}
+                    p Make: #{val.make}
+                    p Model: #{val.model}
+                    p Color: #{val.color}
+                    p Year: #{val.year}
+                    p Miles: #{val.miles}
+                    p Description: #{val.description}
         
     
