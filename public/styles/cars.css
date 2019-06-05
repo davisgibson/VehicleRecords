@@ -6,15 +6,19 @@
     border-radius: 20px;
     background: #f7b733;
 }
+
+body{
+    background: #4abdac;
+}
 *{
     padding: 0px; 
-    margin: 0px;
+    margin: 0px;    
 }
 .carListContainer{
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
-    background: #4abdac;
+
 }
 .center{
     display: flex;
@@ -38,4 +42,10 @@
     display: flex;
     justify-content: space-around;
     margin-bottom: 20px;
+    color: lightcoral;
+}
+
+.signin{
+    text-decoration: none;
+    color: lightcoral;
 }

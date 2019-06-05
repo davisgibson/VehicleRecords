@@ -1,6 +1,6 @@
-const express = require('express')
-const app = express()
-const port = 3000
+const express = require('express');
+const app = express();
+const port = 3000;
 app.set('view engine', 'pug');
 app.set('views', '../views');
 var sqlite3 = require('sqlite3').verbose();
@@ -61,7 +61,7 @@ app.get('/cars', function (req, res) {
 app.get('/cars/add',function(req,res) {
     var types = new Array();
     var prom = new Promise(function(resolve,reject){
-        db.all("SELECT make,model FROM carTypes", function(err,rows) {
+        db.all("SELECT make FROM carTypes", function(err,rows) {
             rows.forEach(function(rows){
                 types.push(rows);
             });
