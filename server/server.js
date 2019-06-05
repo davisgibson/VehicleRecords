@@ -80,6 +80,48 @@ app.get('/getCarTypes',function(req,res) {
     });
 });
 
+app.get('/getColors',function(req,res) {
+    var colors = new Array();
+    var prom = new Promise(function(resolve,reject){
+        db.all("SELECT color FROM colors", function(err,rows) {
+            rows.forEach(function(rows){
+                colors.push(rows);
+            });
+            if(colors.length > 0){
+                resolve(colors);
+            }
+            else{
+                reject(new Error("OOPS"));
+            }
+        });
+    }).then(function(value){
+        res.send(colors);
+    }).catch(function(err){
+        console.log(err);
+    });
+});
+
+app.get('/years',function(req,res) {
+    var years = new Array();
+    var prom = new Promise(function(resolve,reject){
+        db.all("SELECT year FROM years", function(err,rows) {
+            rows.forEach(function(row){
+                years.push(row);
+            });
+            if(years.length > 0){
+                resolve(years);
+            }
+            else{
+                reject(new Error("OOPS"));
+            }
+        });
+    }).then(function(value){
+        res.send(years);
+    }).catch(function(err){
+        console.log(err);
+    });
+});
+
 app.get('/cars/add',function(req,res) {
     var types = new Array();
     var prom = new Promise(function(resolve,reject){
