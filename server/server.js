@@ -12,8 +12,11 @@ db.serialize(function(){
     //car types table stores make and model
     db.run('CREATE TABLE carTypes(make text,model text)');
     db.run('INSERT into carTypes (make,model) values ("Ford", "Mustang")');
+    db.run('INSERT into carTypes (make,model) values ("Ford", "Fusion")');
     db.run('INSERT into carTypes (make,model) values ("Chevy", "Silverado")');
+    db.run('INSERT into carTypes (make,model) values ("Chevy", "Camero")');
     db.run('INSERT into carTypes (make,model) values ("Hyundai", "Elantra")');
+    db.run('INSERT into carTypes (make,model) values ("Hyundai", "Sonata")');
 
 
     //colors table
@@ -56,14 +59,33 @@ app.get('/cars', function (req, res) {
     });
 });
 
-
+app.get('/getCarTypes',function(req,res) {
+    var types = new Array();
+    var prom = new Promise(function(resolve,reject){
+        db.all("SELECT make,model FROM carTypes", function(err,rows) {
+            rows.forEach(function(rows){
+                types.push(rows);
+            });
+            if(types.length > 0){
+                resolve(types);
+            }
+            else{
+                reject(new Error("OOPS"));
+            }
+        });
+    }).then(function(value){
+        res.send(types);
+    }).catch(function(err){
+        console.log(err);
+    });
+});
 
 app.get('/cars/add',function(req,res) {
     var types = new Array();
     var prom = new Promise(function(resolve,reject){
-        db.all("SELECT make FROM carTypes", function(err,rows) {
-            rows.forEach(function(rows){
-                types.push(rows);
+        db.all("SELECT make FROM carTypes GROUP BY make", function(err,rows) {
+            rows.forEach(function(row){
+                types.push(row);
             });
             if(types.length > 0){
                 resolve(types);

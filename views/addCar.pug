@@ -3,16 +3,16 @@ html
         title= 'Add Car'
         -var carTypes= types
     body    
+        
         form(method="post")
             h3 Name:
             input(type="text", name="name")/ 
             label(for='model') Make:
-                select#make(name="make")
+                select#make
                     each val in carTypes
                         option= val.make
             h3 Model:
                 select#model(name="models")
-                    
                 
             h3 Color:
             
@@ -21,20 +21,6 @@ html
             h3 Miles:
             input(type="number", name="Miles") 
             h3 Description:
+script(src="/scripts/models.js")
 
-
-script.
-
-    var makeSelection = document.getElementById("make");
-    var cars = document.getElementById("carTypes");
-    makeSelection.addEventListener("change", function() {
-        console.log("huh?");
-        console.log(makeSelection.value);
-        var modelsToAdd = new Array();
-        cars.forEach(function(item){
-            if(item.make == makeSelection.value){
-                document.getElementByID("model").appendChild(document.createElement("OPTION").value = item.make);
-            }
-        });
-    });
             
