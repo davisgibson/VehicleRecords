@@ -8,10 +8,24 @@ function httpGet(url)
     xmlHttp.send( null );
     return xmlHttp.responseText;
 }
-
 window.onload = function(){
     //get car types
-    carTypes = JSON.parse(httpGet('/getCarTypes'));
+    var prom = new Promise(function(resolve,reject){
+        carTypes = JSON.parse(httpGet('/getCarTypes'));
+        resolve(carTypes);
+    }).then(function(cars){
+        var carsAdding = new Array();
+        cars.forEach(function(car){
+            if(carsAdding.length == 0 || !carsAdding.includes(car.make)){
+                carsAdding.push(car.make);
+                var n = document.createElement("OPTION");
+                n.innerHTML = car.make;
+                document.getElementById("make").appendChild(n);
+            }
+        });
+    }).catch(function(err){
+        console.log(err);
+    });
 
     //get colors
     var prom = new Promise(function(resolve,reject){

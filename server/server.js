@@ -143,6 +143,24 @@ app.get('/cars/add',function(req,res) {
     });
 });
 
+app.get('/pushCar',function(req,res){
+    console.log(req.query.name);
+    var carList = [];
+    var prom = new Promise(function(resolve,reject){
+        db.run('INSERT INTO cars (name,make,model,color,year,miles,description) VALUES ("' + req.query.name + '","' + req.query.make+'","'+req.query.model+'","'+req.query.color+'","'+req.query.year+'","' + req.query.miles+'","'+req.query.description+'")', function(err,rows) {
+        });
+        resolve();
+    }).then(function(){
+        db.all("SELECT name,make,model,color,year,miles,description FROM cars", function(err, rows) {
+            rows.forEach(function(rows){
+                carList.push(rows);
+            });
+            res.redirect('/cars');
+        });
+    }).catch(function(err){
+        console.log(err);
+    });
+});
 
 
 /* USEFUL STUFF

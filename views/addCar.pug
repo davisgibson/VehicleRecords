@@ -4,23 +4,25 @@ html
         -var carTypes= types
     body    
         
-        form(method="post")
+        form(method="get" action="/pushCar")
             h3 Name:
-            input(type="text", name="name")/ 
-            label(for='model') Make:
-                select#make
-                    each val in carTypes
-                        option= val.make
+            input(type="text", name="name" required)/ 
+            label(for='make') Make:
+                select#make(name="make" required)
+                    
             h3 Model:
-                select#model(name="models")
+                select#model(name="model" required)
+                    option="Fusion"
             h3 Color:
-                select#color
+                select#color(name="color" required)
             h3 Year:
-                select#year
+                select#year(name="year" required)
             h3 Miles:
-            input(type="number", name="Miles") 
+            input(type="number", name="miles" required) 
             h3 Description:
-                textArea
+                textArea(name="description" required)
+            button(type="submit" formAction="/pushCar") Add
+                
 script(src="/scripts/models.js")
 
             
