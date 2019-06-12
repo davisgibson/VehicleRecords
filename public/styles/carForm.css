@@ -2,16 +2,16 @@ body{
     background: lightgrey;
 }
 
-.center{
-    display: flex;
-    justify-content: center;
-}
-.container{
+form{
+    border: 1px solid black;
+    border-radius: 25px;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
-    width: 40%;
+    width: 300px;
+    margin: auto auto;
+    padding: 20px;
 }
-.box{
-    width: 100px;
+*{
+    text-align: center;
 }

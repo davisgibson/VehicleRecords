@@ -9,7 +9,7 @@ function httpGet(url)
     return xmlHttp.responseText;
 }
 window.onload = function(){
-    //get car types
+    //gets all car makes and models
     var prom = new Promise(function(resolve,reject){
         carTypes = JSON.parse(httpGet('/getCarTypes'));
         resolve(carTypes);
@@ -60,7 +60,7 @@ var colorSelection = document.getElementById("color");
 
 
 
-
+//event listener to populate the model dropdown based on the make
 var makeSelection = document.getElementById("make");
 var modelSelection = document.getElementById('model');
 makeSelection.addEventListener("change", function() {

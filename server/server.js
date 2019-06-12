@@ -1,3 +1,15 @@
+/*
+    Hey Caprock Custom Applications! Thank you guys so much for giving me the opportunity to be a part of your team!
+    
+    Now I know this file is a bit scattered... I could definitely spend another week getting rid of redundancy and actually 
+    using post/put requests instead of only using get. I know that's not the best way, but hey, it works.
+
+    To edit a car, click on it. If you're not signed in it will redirect you to the sign in page. If you don't have an account,
+    don't worry! You can sign up. All of the users are stored in a database, and all of the tables are stored in memory.
+
+*/
+
+//initializing the libraries used for this!
 const express = require('express');
 const app = express();
 const port = 3000;
@@ -51,7 +63,7 @@ db.serialize(function(){
     db.run('INSERT INTO users (username,password) values ("user", "pass")');
 
 
-    //create cars table and populate it so we don't have to add one every time :)
+    //create cars table and populate it
     db.run('CREATE TABLE cars (name varChar(20),  make varChar(20),  model varChar(20), color varChar(20), year number(4), miles number(10), description varChar(300))  ');
     db.run('INSERT INTO cars (name,make,model,color,year,miles,description) VALUES ("Dave","Hyundai","Elantra","Grey",2012,3000,"new")');
     db.run('INSERT INTO cars (name,make,model,color,year,miles,description) VALUES ("John","Chevy","Silverado","Green",2013,3020,"used")');
@@ -63,7 +75,7 @@ db.serialize(function(){
 
 app.listen(port, () => console.log(`app listening on port ${port}!`));
 
-
+//function to redirect users if they aren't logged in.
 const redirectLogin = (req,res,next) => {
     if(!req.session.isLoggedIn){
         res.redirect('/signin');
@@ -73,6 +85,8 @@ const redirectLogin = (req,res,next) => {
     }
 }
 
+
+//gets the car page and sends it all of the cars in the DB
 app.get('/cars', function (req, res) {
     var carList = [];
 
@@ -83,7 +97,7 @@ app.get('/cars', function (req, res) {
         res.render('cars', {items: carList});
     });
 });
-
+//returns the makes and models from the carTypes table
 app.get('/getCarTypes',function(req,res) {
     var types = new Array();
     var prom = new Promise(function(resolve,reject){
@@ -104,7 +118,7 @@ app.get('/getCarTypes',function(req,res) {
         console.log(err);
     });
 });
-
+//gets all of the colors from the DB
 app.get('/getColors',function(req,res) {
     var colors = new Array();
     var prom = new Promise(function(resolve,reject){
@@ -125,7 +139,7 @@ app.get('/getColors',function(req,res) {
         console.log(err);
     });
 });
-
+//gets all of the years from the DB
 app.get('/years',function(req,res) {
     var years = new Array();
     var prom = new Promise(function(resolve,reject){
@@ -146,7 +160,7 @@ app.get('/years',function(req,res) {
         console.log(err);
     });
 });
-
+//gets all of the makes and models from the database (redundant, I know)
 app.get('/cars/add', redirectLogin, function(req,res) {
     var types = new Array();
     var prom = new Promise(function(resolve,reject){
@@ -167,7 +181,7 @@ app.get('/cars/add', redirectLogin, function(req,res) {
         console.log(err);
     });
 });
-
+//actually inserts the car to add into the database (should use a post request)
 app.get('/pushCar',function(req,res){
     var carList = [];
     var prom = new Promise(function(resolve,reject){
@@ -185,7 +199,7 @@ app.get('/pushCar',function(req,res){
         console.log(err);
     });
 });
-
+//gets all of the information from the specific car the user clicked. Finds the car by its name, which you cannot edit. If two names are the same, well...
 app.get('/cars/edit', redirectLogin, function(req,res){
     var query = req.query;
     var car = {
@@ -199,7 +213,7 @@ app.get('/cars/edit', redirectLogin, function(req,res){
     }
     res.render('editCar',{info: car})
 });
-
+//actually edits the car (should be a put request)
 app.get('/editCar',function(req,res){
     var prom = new Promise(function(resolve,reject){
         db.run('UPDATE cars SET make = "'+req.query.make+'", model= "'+req.query.model+'", color = "'+req.query.color+'", year = '+req.query.year+', miles = '+req.query.miles+', description = "'+req.query.description+'" WHERE name = "' + req.query.name+'"', function(err,rows) {
@@ -225,7 +239,7 @@ app.get('/signin',function(req,res){
 app.get('/signup',function(req,res){
     res.render('signup');
 });
-
+//checks if the credentials are correct, and if not, redirects to the sign up page
 app.get('/sign',function(req,res){
     var prom = new Promise(function(resolve,reject){
         var foundUser;
@@ -252,7 +266,7 @@ app.get('/sign',function(req,res){
         res.redirect('/signup');
     });
 });
-
+//actually signs the user up
 app.get('/signu', function(req,res){
     var prom = new Promise(function(resolve,reject){
         db.run('INSERT INTO users (username,password) values ("' + req.query.username+ '", "'+ req.query.password +'")');
@@ -262,14 +276,3 @@ app.get('/signu', function(req,res){
         res.redirect('/cars');
     });
 });
-
-
-/* USEFUL STUFF
-app.get('/cars/:carID', function (req, res) {
-    res.send(req.params);
-});
-
-app.get('/', function (req, res) {
-    res.render('test', { title: 'Hey', message: 'Hello there!' });
-});*/
-
