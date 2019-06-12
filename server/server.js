@@ -276,3 +276,18 @@ app.get('/signu', function(req,res){
         res.redirect('/cars');
     });
 });
+
+app.get('/deleteCar', function(req,res){
+    var carList = new Array();
+    var prom = new Promise(function(resolve,reject){
+        db.run('DELETE FROM cars WHERE name = "'+req.query.name+'"');
+        resolve();
+    }).then(function(){
+        db.all("SELECT name,make,model,color,year,miles,description FROM cars", function(err, rows) {
+            rows.forEach(function(rows){
+                carList.push(rows);
+            });
+            res.render('cars', {items: carList});
+        });
+    });
+});
