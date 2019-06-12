@@ -1,0 +1,23 @@
+body{
+    background: lightgrey;
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+    flex-flow: column wrap;
+    justify-content: space-around;
+}
+
+*{
+    text-align: center;
+    margin: 5px;
+}
+
+form{
+    width: 100px;
+    margin: auto auto;
+    border: 1px solid black;
+    border-radius: 25px;
+    padding: 100px;
+}

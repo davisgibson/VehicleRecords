@@ -2,26 +2,28 @@ html
     head
         title= 'Add Car'
         -var carTypes= types
+        link(rel="stylesheet" type="text/css" href="/styles/carForm.css")
+
     body    
         
-        form(method="get" action="/pushCar")
-            h3 Name:
-            input(type="text", name="name" required)/ 
-            label(for='make') Make:
-                select#make(name="make" required)
+        form.container(method="get" action="/pushCar")
+            h3.center Name:
+            input(class="center" type="text", name="name" required)/ 
+            h3.center Make:
+                select#make.center(name="make" required)
                     
-            h3 Model:
-                select#model(name="model" required)
+            h3.center Model:
+                select#model.center(name="model" required)
                     option="Fusion"
-            h3 Color:
-                select#color(name="color" required)
-            h3 Year:
+            h3.center Color:
+                select#color.center(name="color" required)
+            h3.center Year:
                 select#year(name="year" required)
-            h3 Miles:
-            input(type="number", name="miles" required) 
-            h3 Description:
-                textArea(name="description" required)
-            button(type="submit" formAction="/pushCar") Add
+            h3.center Miles:
+            input.center(type="number", name="miles" required) 
+            h3.center Description:
+                textArea.center(name="description" required)
+            button.center(type="submit" formAction="/pushCar") Add
                 
 script(src="/scripts/models.js")
 

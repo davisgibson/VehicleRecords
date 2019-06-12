@@ -1,0 +1,13 @@
+html
+    head   
+        title= "Sign In"
+        link(rel="stylesheet" type="text/css" href="/styles/signin.css")
+    body    
+        h1 Sign In
+        form.center(method="get" action="/sign")
+            h3 Username:
+            input(type="text" name="username")
+            h3 Password: 
+            input(type="text" name="password")
+            button(type="submit") Sign In
+        a(href="/signup") Sign Up!

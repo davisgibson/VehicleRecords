@@ -1,0 +1,29 @@
+html
+    head
+        title= 'Edit Car'
+        -var thisCar = info
+        link(rel="stylesheet" type="text/css" href="/styles/carForm.css")
+    body.center    
+        h1 Edit
+        form(method="get" action="/pushCar")
+            h3 Name:
+            input.box(type="text",value=thisCar.name, name="name" readonly)/
+            h3 Make:
+                select#make(name="make" required)
+                    option #{thisCar.make}
+            h3 Model:
+                select#model(name="model" required)
+                    option #{thisCar.model}
+            h3 Color:
+                select#color(name="color" required)
+                    option #{thisCar.color}
+            h3 Year:
+                select#year(name="year" required)
+                    option #{thisCar.year}
+            h3 Miles:
+            input.box(type="number", name="miles" value=thisCar.miles required) 
+            h3 Description:
+                textArea(name="description" required) #{thisCar.description}
+            button(type="submit" formAction="/editCar") Edit
+                
+script(src="/scripts/editCar.js")
